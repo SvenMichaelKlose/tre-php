@@ -6,11 +6,11 @@
 
 (fn rfc2110-header (fromemail)
   (+ "From: " fromemail "\n"
-	 "Reply-To: " fromemail "\n"
-	 "X-Mailer: tre rfc2110 support.\n"
-    	 "Mime-Version: 1.0\n"
-	 "Content-Type: Multipart/mixed; boundary=\""
-	 (rfc2110-boundary ) "\""))
+     "Reply-To: " fromemail "\n"
+     "X-Mailer: tre rfc2110 support.\n"
+         "Mime-Version: 1.0\n"
+     "Content-Type: Multipart/mixed; boundary=\""
+     (rfc2110-boundary ) "\""))
 
 (fn rfc2110-tail ()
   (+ "--" (rfc2110-boundary) "--\n"))
@@ -42,16 +42,16 @@
     (rfc2110-attachment
         attachment
         (+ type "; name=\"" filename "\"\n"
-		  "Content-Disposition: inline; filename=\"" filename "\"\n"
-		  "Content-MD5: " (md5 bin))
+          "Content-Disposition: inline; filename=\"" filename "\"\n"
+          "Content-MD5: " (md5 bin))
         "base64")))
 
 (fn send-mail (subject to body customer)
   (mail to subject
-    	(rfc2110-attachment body "text/plain; charset=UTF-8")
-      	(rfc2110-header (urldecode customer))))
+        (rfc2110-attachment body "text/plain; charset=UTF-8")
+        (rfc2110-header (urldecode customer))))
 
 (fn send-html-mail (from subject to body)
   (mail to subject
         (rfc2110-attachment body "text/html; charset=UTF-8")
-      	(rfc2110-header from)))
+        (rfc2110-header from)))
