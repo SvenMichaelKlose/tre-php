@@ -15,11 +15,8 @@
 (fn request-uri () 
   (aref *_SERVER* "REQUEST_URI"))
 
-(fn parse-url ()
-  (parse_url (request-uri)))
-
-(fn request-path ()
-  (aref (parse-url) "path"))
-
 (fn request-path-components ()
   (remove-if #'empty-string? (subseq (path-pathlist (request-uri)) *request-path-offset*)))
+
+(fn request-path ()
+  (pathlist-path (request-path-components)))
